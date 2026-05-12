@@ -3,6 +3,7 @@ module org.example.org.example.org.example.chatroom {
     requires javafx.fxml;
     requires java.desktop;
     requires java.net.http;
+    requires java.prefs;
 
 
     exports org.example.chatroom.server;

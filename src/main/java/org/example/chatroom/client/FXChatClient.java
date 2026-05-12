@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.prefs.Preferences;
 
 import java.io.*;
 import java.net.Socket;
@@ -36,6 +37,11 @@ public class FXChatClient extends Application {
 
     private final HttpClient httpClient =
             HttpClient.newHttpClient();
+
+    private final Preferences prefs =
+            Preferences.userNodeForPackage(
+                    FXChatClient.class
+            );
 
     private final Set<String> typingUsers =
             new HashSet<>();
@@ -133,6 +139,9 @@ public class FXChatClient extends Application {
         Button leaveBtn = new Button("Leave");
         leaveBtn.setDisable(true);
 
+        Button logoutBtn =
+                new Button("Logout");
+
         HBox connectionButtons =
                 new HBox(10, connectBtn, leaveBtn);
 
@@ -195,6 +204,20 @@ public class FXChatClient extends Application {
                 )
         );
 
+        logoutBtn.setOnAction(e -> {
+
+            leaveRoom(
+                    sendBtn,
+                    leaveBtn,
+                    connectBtn
+            );
+
+            prefs.remove("saved_email");
+            prefs.remove("saved_password");
+
+            showLoginScene();
+        });
+
         sendBtn.setOnAction(e -> sendMessage());
 
         inputField.setOnAction(e -> sendMessage());
@@ -220,6 +243,7 @@ public class FXChatClient extends Application {
         VBox chatBox = new VBox(
                 10,
                 themeBtn,
+                logoutBtn,
                 roomCodeLabel,
                 roomField,
                 userLabel,
@@ -286,6 +310,14 @@ public class FXChatClient extends Application {
         PasswordField passwordField =
                 new PasswordField();
 
+        emailField.setText(
+                prefs.get("saved_email", "")
+        );
+
+        passwordField.setText(
+                prefs.get("saved_password", "")
+        );
+
         passwordField.setPromptText("Password");
 
         Button loginBtn = new Button("Login");
@@ -333,6 +365,16 @@ public class FXChatClient extends Application {
                                 emailField.getText()
                         );
 
+                prefs.put(
+                        "saved_email",
+                        emailField.getText()
+                );
+
+                prefs.put(
+                        "saved_password",
+                        passwordField.getText()
+                );
+
                 showChatScene(
                         displayName,
                         false
@@ -371,6 +413,34 @@ public class FXChatClient extends Application {
                     true
             );
         });
+        String savedEmail =
+                prefs.get("saved_email", "");
+
+        String savedPassword =
+                prefs.get("saved_password", "");
+
+        if (!savedEmail.isBlank() &&
+                !savedPassword.isBlank()) {
+
+            boolean success = login(
+                    savedEmail,
+                    savedPassword
+            );
+
+            if (success) {
+
+                String displayName =
+                        getDisplayNameFromEmail(
+                                savedEmail
+                        );
+
+                showChatScene(
+                        displayName,
+                        false
+                );
+
+            }
+        }
         primaryStage.show();
     }
 

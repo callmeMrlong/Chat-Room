@@ -1,12 +1,96 @@
 .root {
     -fx-background-color: #2b2b2b;
+    -fx-font-family: "Segoe UI";
 }
 
+* {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Labels */
 .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #f5f5f5;
+    -fx-font-size: 14px;
 }
 
-.text-area, .text-field {
+/* Buttons */
+.button {
     -fx-background-color: #3c3f41;
     -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 8 14;
+}
+
+.button:hover {
+    -fx-background-color: #4b4f52;
+}
+
+/* Input */
+.text-field {
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #999999;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
+/* Chat container */
+.scroll-pane {
+    -fx-background-color: #232323;
+    -fx-background: #232323;
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #232323;
+}
+
+/* Message box */
+#messageBox {
+    -fx-background-color: #232323;
+    -fx-spacing: 10;
+}
+
+/* User list */
+.list-view {
+    -fx-control-inner-background: #3c3f41;
+    -fx-background-color: #3c3f41;
+    -fx-background-radius: 10;
+}
+
+.list-view .viewport {
+    -fx-background-color: #3c3f41;
+}
+
+.list-cell {
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: white;
+}
+
+.list-cell:selected {
+    -fx-background-color: #555555;
+}
+/* Smooth modern scroll area */
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 8;
+}
+
+/* Hide ugly borders */
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+/* Better scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #666666;
+    -fx-background-radius: 10;
 }
