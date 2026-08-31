@@ -30,10 +30,10 @@ import java.net.URL;
 
 public class FXChatClient extends Application {
     private static final String SUPABASE_URL =
-            "https://gxmlzwapthuqggcvwwyu.supabase.co";
+            "SUPABASE URL";
 
     private static final String SUPABASE_KEY =
-            "sb_publishable_DbkMAlj9wcLLPH092DLC-A_3mmCt4g3";
+            "SUPABASE KEY";
 
     private final HttpClient httpClient =
             HttpClient.newHttpClient();
